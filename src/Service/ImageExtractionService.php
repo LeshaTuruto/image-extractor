@@ -22,5 +22,17 @@ class ImageExtractionService
         }
         return $imageList;
     }
+    public function getExtractedImagesSrc(array $images): array
+    {
+        $ExtractedImagesSrc = [];
+
+        foreach($images as $image){
+            if($image->hasAttribute('src')){
+                $ExtractedImagesSrc[] = $image->getAttribute('src');
+            }
+        }
+
+        return $ExtractedImagesSrc;
+    }
 }
 

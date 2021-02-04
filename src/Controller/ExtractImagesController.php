@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\ImageExtractionService;
+use App\Service\SaveExtractedImageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,25 +15,16 @@ class ExtractImagesController extends AbstractController
      * @Route("/extract/images/{url}", name="extract_images")
      * @param $url
      */
-    public function index(string $url, Request $request): Response
+    public function index(string $url, Request $request, ImageExtractionService $imageExtractionService, SaveExtractedImageService $saver ): Response
     {
-        if($request->request->has('save')){
-            echo var_dump($request->request->get('0'));
+        $images = $imageExtractionService->extract($url);
+        $saver->fill($images);
+        if($saver->handleRequest($request)){
+            $saver->save();
+            return $this->redirectToRoute("image_list");
         }
-        $extractionService = new ImageExtractionService();
-        $images = $extractionService->extract($url);
-        $attributes = [];
-        /*foreach($images[0]->attributes as $attribute_name => $attribute_node){
-            $attributes[$attribute_name] = $attribute_node->nodeValue;
-        }
-        */
-        $imagesSrcList = [];
+        $imagesSrcList = $imageExtractionService->getExtractedImagesSrc($images);
         $counter = 0;
-        foreach($images as $image){
-            if($image->hasAttribute('src')){
-                $imagesSrcList[] = $image->getAttribute('src');
-            }
-        }
         return $this->render('extract_images/index.html.twig', [
             'images_src_list' => $imagesSrcList,
             'counter' => $counter,
