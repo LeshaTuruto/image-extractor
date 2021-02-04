@@ -3,17 +3,20 @@
 {% block title %}Hello ImageListController!{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="row">
     <button type="button" class="btn-lg btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">Extract Images</button>
 </div>
-<div class="container" style="padding:2%;">
+<div class="row" style="padding:2%;">
 {% if image_list %}
     {% for image in image_list %}
-    <div class="card text-left">
-        <img class="card-img-top" src="holder.js/100px180/" alt="">
-        <div class="card-body">
-            <h4 class="card-title">Title</h4>
-            <p class="card-text">Body</p>
+    <div class ="col-sm-4 mb-4">
+        <div class="card card-cascade wider">
+            <img class="card-img-top" src="{{ image.imageUrl }}" alt="">
+            <div class="card-body">
+                {% for characteristic in image.characteristics %}   
+                    <p class="card-text">{{characteristic.name}} : {{characteristic.value}}</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
     {% endfor %}
