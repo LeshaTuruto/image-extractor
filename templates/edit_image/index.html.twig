@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EditImageController!{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    <div id="container" class ="container text-center">
+        <h2 style="padding:5%;">Edit Image Information</h2>
+            {{form_widget(form.imageUrl,{'attr': {
+                'class': 'form-control',
+                'id': 'imageUrl',
+            }})}}
+        <div id="characteristics" data-prototype="{{ form_widget(form.characteristics.vars.prototype)|e('html_attr') }}">    
+        {% for characteristic in form.characteristics %}
+            <div class="row">
+               <div class="col">
+                   {{form_widget(characteristic.name, {'attr': {
+                       'class': 'form-control',
+
+                   }})}}
+               </div>
+                <div class="col">
+                   {{form_widget(characteristic.value, {'attr': {
+                       'class': 'form-control',
+                   }})}}
+               </div>
+            </div>
+        {% endfor %}
+        </div>
+        <button id="add" type="button" class="btn btn-lg btn-success" data-collection-holder-id="characteristics">Add a characteristic</button>
+        <button class="btn btn-lg btn-primary" type="submit">Edit</button>
+    </div>
+    {{ form_end(form) }}
+<script>
+jQuery(document).ready(function() {
+    var $tagsCollectionHolder = $('#characteristics');
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $tagsCollectionHolder.data('index', $tagsCollectionHolder.find('input').length);
+    $('body').on('click', '#add', function(e) {
+        var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+        // add a new tag form (see next code block)
+        addFormToCollection($collectionHolderClass);
+    })
+});
+function addFormToCollection($collectionHolderClass) {
+    // Get the ul that holds the collection of tags
+    var $collectionHolder = $('#characteristics');
+
+    // Get the data-prototype explained earlier
+    var prototype = $collectionHolder.data('prototype');
+
+    // get the new index
+    var index = $collectionHolder.data('index');
+
+    var newForm = prototype;
+    // You need this only if you didn't set 'label' => false in your tags field in TaskType
+    // Replace '__name__label__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    // newForm = newForm.replace(/__name__label__/g, index);
+
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    newForm = newForm.replace(/__name__/g, index);
+
+    // increase the index with one for the next item
+    $collectionHolder.data('index', index + 1);
+
+    // Display the form in the page in an li, before the "Add a tag" link li
+    var $newFormLi = $("<div class='row'></div>").append(newForm);
+    addTagFormDeleteLink($newFormLi);
+    $newFormLi.find('label').remove();
+    $inputContent = $newFormLi.find('input');
+    $inputContent.each(function(){
+        $(this).wrap("<div class='col'></div>");
+    });
+    $inputContent.addClass('form-control');
+    $inputContent = $("<div class='row'></div>").append($inputContent);
+    // Add the new form at the end of the list
+    $collectionHolder.append($inputContent);
+}
+
+jQuery(document).ready(function() {
+    // Get the ul that holds the collection of tags
+    $collectionHolder = $('#characteristics');
+
+    // add a delete link to all of the existing tag form li elements
+    $collectionHolder.find('.row').each(function() {
+        addTagFormDeleteLink($(this));
+    });
+
+    // ... the rest of the block from above
+});
+
+function addTagFormDeleteLink($tagFormLi) {
+    var $removeFormButton = $('<button type="button" class="btn btn-danger">x</button>');
+    $tagFormLi.append($removeFormButton);
+
+    $removeFormButton.on('click', function(e) {
+        // remove the li for the tag form
+        $tagFormLi.remove();
+    });
+}
+
+
+</script>
+
+{% endblock %}

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\ExtractedImage;
 use App\Entity\ExtractedImageCharacteristic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -38,15 +39,15 @@ class ExtractedImageCharacteristicRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?ExtractedImageCharacteristic
+    public function findOneByImageAndName(ExtractedImage $image, string $name): ?ExtractedImageCharacteristic
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('e.extractedImage = :img')
+            ->andWhere('e.name = :val')
+            ->setParameter('img', $image)
+            ->setParameter('val', $name)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

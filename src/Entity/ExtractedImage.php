@@ -27,7 +27,7 @@ class ExtractedImage
     private $imageUrl;
 
     /**
-     * @ORM\OneToMany(targetEntity=ExtractedImageCharacteristic::class, mappedBy="extractedImage", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ExtractedImageCharacteristic::class, mappedBy="extractedImage", cascade={"persist"}, orphanRemoval=true)
      */
     private $characteristics;
 

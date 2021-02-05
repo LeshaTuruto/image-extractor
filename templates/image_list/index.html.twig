@@ -10,12 +10,14 @@
 {% if image_list %}
     {% for image in image_list %}
     <div class ="col-sm-4 mb-4">
-        <div class="card card-cascade wider">
+        <div class="card card-cascade wider text-center">
             <img class="card-img-top" src="{{ image.imageUrl }}" alt="">
             <div class="card-body">
                 {% for characteristic in image.characteristics %}   
                     <p class="card-text">{{characteristic.name}} : {{characteristic.value}}</p>
                 {% endfor %}
+                <a class="btn btn-danger" href= {{path('delete_image', {'imageId': image.id})}}>Delete</a>
+                <a class="btn btn-primary" href= {{path('edit_image', {'imageId': image.id})}}>Edit</a>
             </div>
         </div>
     </div>
