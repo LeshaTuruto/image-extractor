@@ -8,6 +8,10 @@ use App\Entity\ExtractedImage;
 use App\Entity\ExtractedImageCharacteristic;
 use DOMElement;
 
+/**
+ * Convert DOMElement into ExtractedImage.
+ */
+
 class DOMElementConvertor
 {
     public function convert( DOMElement $element): ExtractedImage

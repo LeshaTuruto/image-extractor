@@ -8,6 +8,10 @@ use App\Convertor\DOMElementConvertor;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Saves Extracted image in database.
+ */
+
 class SaveExtractedImageService
 {
     private array $images;

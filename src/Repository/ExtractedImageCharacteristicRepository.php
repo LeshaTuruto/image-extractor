@@ -22,23 +22,6 @@ class ExtractedImageCharacteristicRepository extends ServiceEntityRepository
         parent::__construct($registry, ExtractedImageCharacteristic::class);
     }
 
-    // /**
-    //  * @return ExtractedImageCharacteristic[] Returns an array of ExtractedImageCharacteristic objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
     public function findOneByImageAndName(ExtractedImage $image, string $name): ?ExtractedImageCharacteristic
     {
         return $this->createQueryBuilder('e')

@@ -32,9 +32,9 @@
 <script>
 jQuery(document).ready(function() {
     $('label').remove();
-    let $tagsCollectionHolder = $('#characteristics');
+    let $characteristicsCollectionHolder = $('#characteristics');
 
-    $tagsCollectionHolder.data('index', $tagsCollectionHolder.find('input').length);
+    $characteristicsCollectionHolder.data('index', $characteristicsCollectionHolder.find('input').length);
     $('body').on('click', '#add', function(e) {
         let $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
         addFormToCollection($collectionHolderClass);

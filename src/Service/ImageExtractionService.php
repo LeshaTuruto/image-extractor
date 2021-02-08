@@ -7,13 +7,16 @@ namespace App\Service;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\DomCrawler\Crawler;
 
+/**
+ * Extract images from url pattern.
+ */
 
 class ImageExtractionService
 {
     public function extract(string $url): array
     {
         $extractingClient = HttpClient::create();
-        $extractedPage = $extractingClient->request('GET',$url);
+        $extractedPage = $extractingClient->request('GET', $url);
         $crawler = new Crawler($extractedPage->getContent());
         $crawler = $crawler->filterXPath('descendant-or-self::img');
         $imageList = [];
