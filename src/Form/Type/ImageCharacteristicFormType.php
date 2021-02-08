@@ -14,8 +14,20 @@ class ImageCharacteristicFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('value')
+            ->add('name', null, [
+                'attr' => [
+                    'placeholder' => 'name',
+                    'class' => 'form-control',
+                ],
+                'label' => false,
+            ])
+            ->add('value', null, [
+                'attr' => [
+                    'placeholder' => 'value',
+                    'class' => 'form-control',
+                ],
+                'label' => false
+            ])
         ;
     }
     public function configureOptions(OptionsResolver $resolver)

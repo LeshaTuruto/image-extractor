@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Convertor\UrlConvertor;
 use App\Form\Type\StartImageExtractionFormType;
 use App\Repository\ExtractedImageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,13 +20,13 @@ class ImageListController extends AbstractController
         $form = $this->createForm(StartImageExtractionFormType::class);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $urlConvertor = new UrlConvertor();
             return $this->redirectToRoute("extract_images", [
-                "url" => $form->get('urlPattern')->getData(),
+                "convertedUrl" => $urlConvertor->convert($form->get('urlPattern')->getData()),
              ]);
         }
         $imageList = $extractedImageRepository->findAll();        
         return $this->render('image_list/index.html.twig', [
-            'controller_name' => 'ImageListController',
             'image_list' => $imageList,
             'form' => $form->createView(),
         ]);

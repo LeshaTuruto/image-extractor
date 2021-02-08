@@ -13,9 +13,8 @@ class ImageExtractionService
     public function extract(string $url): array
     {
         $extractingClient = HttpClient::create();
-        $extractedPage = $extractingClient->request('GET','https://'.$url);
+        $extractedPage = $extractingClient->request('GET',$url);
         $crawler = new Crawler($extractedPage->getContent());
-        echo var_dump($extractedPage->getContent());
         $crawler = $crawler->filterXPath('descendant-or-self::img');
         $imageList = [];
         foreach($crawler as $domElement){
