@@ -16,15 +16,16 @@ class ImageFormType extends AbstractType
     {
         $builder
             ->add('imageUrl')
-            ->add('characteristics', CollectionType::class,[
+            ->add('characteristics', CollectionType::class, [
                 'by_reference' => false,
                 'entry_type' => ImageCharacteristicFormType::class,
-                'entry_options' => ['label' => false],   
-                'allow_add' => true,    
-                'allow_delete' => true,         
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
             ])
         ;
     }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -32,4 +33,3 @@ class ImageFormType extends AbstractType
         ]);
     }
 }
-

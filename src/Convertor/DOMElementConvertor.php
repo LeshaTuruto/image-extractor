@@ -11,13 +11,12 @@ use DOMElement;
 /**
  * Convert DOMElement into ExtractedImage.
  */
-
 class DOMElementConvertor
 {
-    public function convert( DOMElement $element): ExtractedImage
+    public function convert(DOMElement $element): ExtractedImage
     {
         $convertedElement = new ExtractedImage();
-        foreach($element->attributes as $attributeName => $attributeNode){
+        foreach ($element->attributes as $attributeName => $attributeNode) {
             $characteristic = new ExtractedImageCharacteristic();
             $characteristic->setName($attributeName);
             $characteristic->setValue($attributeNode->nodeValue);
@@ -25,7 +24,7 @@ class DOMElementConvertor
         }
         $url = $element->getAttribute('src');
         $convertedElement->setImageUrl($url);
+
         return $convertedElement;
     }
 }
-

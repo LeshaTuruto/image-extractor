@@ -14,12 +14,11 @@ class StartImageExtractionFormType extends AbstractType
     {
         $builder->add('urlPattern');
     }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => null,
         ]);
     }
-
 }
-

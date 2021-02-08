@@ -22,13 +22,14 @@ class AddImageController extends AbstractController
         $form = $this->createForm(ImageFormType::class, $image);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($form->getData());
             $em->flush();
 
-            return $this->redirectToRoute("image_list");
+            return $this->redirectToRoute('image_list');
         }
+
         return $this->render('edit_image/index.html.twig', [
             'form' => $form->createView(),
         ]);

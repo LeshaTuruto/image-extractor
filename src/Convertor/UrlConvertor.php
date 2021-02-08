@@ -6,11 +6,11 @@ namespace App\Convertor;
 
 class UrlConvertor
 {
-    public function convert(string $url): string 
+    public function convert(string $url): string
     {
         $regExp = "/\//";
 
-        $convertedUrl = preg_replace($regExp, "|", $url);
+        $convertedUrl = preg_replace($regExp, '|', $url);
 
         return $convertedUrl;
     }
@@ -19,10 +19,8 @@ class UrlConvertor
     {
         $regExp = "/\|/";
 
-        $url = preg_replace($regExp, "/", $convertedUrl);
+        $url = preg_replace($regExp, '/', $convertedUrl);
 
         return $url;
-
     }
 }
-

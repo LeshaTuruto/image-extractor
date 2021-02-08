@@ -26,16 +26,15 @@ class ImageCharacteristicFormType extends AbstractType
                     'placeholder' => 'value',
                     'class' => 'form-control',
                 ],
-                'label' => false
+                'label' => false,
             ])
         ;
     }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => ExtractedImageCharacteristic::class,
         ]);
     }
-
 }
-

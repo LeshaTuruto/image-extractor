@@ -19,13 +19,15 @@ class ImageListController extends AbstractController
     {
         $form = $this->createForm(StartImageExtractionFormType::class);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $urlConvertor = new UrlConvertor();
-            return $this->redirectToRoute("extract_images", [
-                "convertedUrl" => $urlConvertor->convert($form->get('urlPattern')->getData()),
+
+            return $this->redirectToRoute('extract_images', [
+                'convertedUrl' => $urlConvertor->convert($form->get('urlPattern')->getData()),
              ]);
         }
-        $imageList = $extractedImageRepository->findAll();        
+        $imageList = $extractedImageRepository->findAll();
+
         return $this->render('image_list/index.html.twig', [
             'image_list' => $imageList,
             'form' => $form->createView(),

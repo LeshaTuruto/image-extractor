@@ -13,6 +13,7 @@ class DeleteImageController extends AbstractController
 {
     /**
      * @Route("/delete/image/{imageId}", name="delete_image")
+     *
      * @param $imageId
      */
     public function index(int $imageId, ExtractedImageRepository $extractedImageRepository): Response
@@ -21,6 +22,7 @@ class DeleteImageController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($image);
         $em->flush();
-        return $this->redirectToRoute("image_list");
+
+        return $this->redirectToRoute('image_list');
     }
 }
