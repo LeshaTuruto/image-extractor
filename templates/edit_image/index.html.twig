@@ -5,88 +5,88 @@
 {% block body %}
 
     {{ form_start(form) }}
-    <div id="container" class ="container text-center">
+    <div id="container" class ="container text-center py-5">
         <h2 style="padding:5%;">Image Information</h2>
         <div class="row">
             {{ form_widget(form.imageUrl,{'attr': {
                 'class': 'form-control',
                 'id': 'imageUrl',
             }}) }}
-        </div>    
-        <div id="characteristics" data-prototype="{{ form_widget(form.characteristics.vars.prototype)|e('html_attr') }}">    
-        {% for characteristic in form.characteristics %}
-            <div class="row">
-               <div class="col">
-                   {{ form_widget(characteristic.name) }}
-               </div>
-                <div class="col">
-                   {{ form_widget(characteristic.value )}}
-               </div>
-            </div>
-        {% endfor %}
+        </div>
+        <div id="characteristics" data-prototype="{{ form_widget(form.characteristics.vars.prototype)|e('html_attr') }}">
+            {% for characteristic in form.characteristics %}
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(characteristic.name) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(characteristic.value )}}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
         <button id="add" type="button" class="btn btn-lg btn-success" data-collection-holder-id="characteristics">Add characteristic</button>
         <button class="btn btn-lg btn-primary" type="submit">Save</button>
     </div>
     {{ form_end(form) }}
-<script>
-jQuery(document).ready(function() {
-    $('label').remove();
-    let $characteristicsCollectionHolder = $('#characteristics');
+    <script>
+        jQuery(document).ready(function() {
+            $('label').remove();
+            let $characteristicsCollectionHolder = $('#characteristics');
 
-    $characteristicsCollectionHolder.data('index', $characteristicsCollectionHolder.find('input').length);
-    $('body').on('click', '#add', function(e) {
-        let $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
-        addFormToCollection($collectionHolderClass);
-    })
-});
-function addFormToCollection($collectionHolderClass) {
-    let $collectionHolder = $('#characteristics');
+            $characteristicsCollectionHolder.data('index', $characteristicsCollectionHolder.find('input').length);
+            $('body').on('click', '#add', function(e) {
+                let $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+                addFormToCollection($collectionHolderClass);
+            })
+        });
+        function addFormToCollection($collectionHolderClass) {
+            let $collectionHolder = $('#characteristics');
 
-    let prototype = $collectionHolder.data('prototype');
+            let prototype = $collectionHolder.data('prototype');
 
-    let index = $collectionHolder.data('index');
+            let index = $collectionHolder.data('index');
 
-    let newForm = prototype;
+            let newForm = prototype;
 
-    newForm = newForm.replace(/__name__/g, index);
+            newForm = newForm.replace(/__name__/g, index);
 
-    let NewFormRow = $("<div class='row'></div>").append(newForm);
-
-
-    NewFormRow.find('input').wrap("<div class='col'></div>");
-    $inputContent = NewFormRow.find('.col');
-    $inputContent.find('input').addClass('form-control');
-    $inputContent = $("<div class='row'></div>").append($inputContent);
-    $inputContent.attr("id", "image_from_characterisctics_"+index);
-
-    $collectionHolder.data('index', index + 1);
-
-    addTagFormDeleteLink($inputContent);
-
-    $collectionHolder.append($inputContent);
-
-}
-
-jQuery(document).ready(function() {
-    $collectionHolder = $('#characteristics');
-
-    $collectionHolder.find('.row').each(function() {
-        addTagFormDeleteLink($(this));
-    });
-
-});
-
-function addTagFormDeleteLink($tagFormRow) {
-    let $removeFormButton = $("<div class='col'><button type='button' class='btn btn-danger'>x</button></div>");
-    $tagFormRow.append($removeFormButton);
-
-    $removeFormButton.on('click', function(e) {
-        $tagFormRow.remove();
-    });
-}
+            let NewFormRow = $("<div class='row'></div>").append(newForm);
 
 
-</script>
+            NewFormRow.find('input').wrap("<div class='col'></div>");
+            $inputContent = NewFormRow.find('.col');
+            $inputContent.find('input').addClass('form-control');
+            $inputContent = $("<div class='row'></div>").append($inputContent);
+            $inputContent.attr("id", "image_from_characterisctics_"+index);
+
+            $collectionHolder.data('index', index + 1);
+
+            addTagFormDeleteLink($inputContent);
+
+            $collectionHolder.append($inputContent);
+
+        }
+
+        jQuery(document).ready(function() {
+            $collectionHolder = $('#characteristics');
+
+            $collectionHolder.find('.row').each(function() {
+                addTagFormDeleteLink($(this));
+            });
+
+        });
+
+        function addTagFormDeleteLink($tagFormRow) {
+            let $removeFormButton = $("<div class='col'><button type='button' class='btn btn-danger'>x</button></div>");
+            $tagFormRow.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                $tagFormRow.remove();
+            });
+        }
+
+
+    </script>
 
 {% endblock %}

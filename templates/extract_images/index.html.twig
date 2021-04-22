@@ -3,26 +3,27 @@
 {% block title %}Extracted Images{% endblock %}
 
 {% block body %}
-<form method="post">
-    <div class="row">
-        <button name="save" type="submit" class="btn-lg btn-primary btn-block">save chosen images</button>
-    </div>
-    <div class="row">
-        {% if images_src_list  %}
-            {% for image_src in images_src_list %}
-                <div class="col-sm-4 mb-4">
-                    <div class="card card-cascade wider">
-                        <img class="card-img-top" src="{{ image_src }}" alt="Card image cap">
-                        <div class="card-body">
-                            <div class="card-title">Choose Image</div>
-                            <input name="{{ counter }}" type="checkbox" class="form-check-label mt-4">
+    <div class="container py-5">
+        <form method="post">
+            <div class="row">
+                <button name="save" type="submit" class="btn-lg btn-primary btn-block">save chosen images</button>
+            </div>
+            <div class="row">
+                {% if images_src_list  %}
+                    {% for image_src in images_src_list %}
+                        <div class="col-sm-4 mb-4">
+                            <div class="card card-cascade wider">
+                                <img class="card-img-top" src="{{ image_src }}" alt="Card image cap">
+                                <div class="card-body">
+                                    <div class="card-title">Choose Image</div>
+                                    <input name="{{ counter }}" type="checkbox" class="form-check-label mt-4">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                {% set counter = counter + 1 %}    
-            {% endfor %}
-        {% endif %}
+                        {% set counter = counter + 1 %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </form>
     </div>
-</form>
-
 {% endblock %}

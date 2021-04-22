@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ImageListController extends AbstractController
 {
     /**
-     * @Route("/imagelist", name="image_list")
+     * @Route("/list", name="image_list")
      */
     public function index(ExtractedImageRepository $extractedImageRepository, Request $request): Response
     {

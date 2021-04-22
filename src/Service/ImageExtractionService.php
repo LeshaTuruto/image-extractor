@@ -19,6 +19,7 @@ class ImageExtractionService
         $crawler = new Crawler($extractedPage->getContent());
         $crawler = $crawler->filterXPath('descendant-or-self::img');
         $imageList = [];
+
         foreach ($crawler as $domElement) {
             $imageList[] = $domElement;
         }
